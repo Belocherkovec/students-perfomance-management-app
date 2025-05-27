@@ -1,0 +1,54 @@
+### Общие игнорируемые файлы ###
+# Логи
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Системные файлы
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+### Backend специфичные правила ###
+backend/node_modules/
+backend/dist/
+backend/*.tsbuildinfo
+backend/coverage/
+backend/.nyc_output/
+backend/*.sqlite
+backend/*.sqlite3
+backend/database/dump/
+backend/migrations/*.js
+backend/seeders/*.js
+backend/test-data/
+
+### Frontend специфичные правила (Vite) ###
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+frontend/__snapshots__/
+frontend/coverage/
+
+### Дополнительные исключения ###
+!backend/src/migrations/*.ts   # Разрешаем TS-файлы миграций
+!backend/src/seeders/*.ts       # Разрешаем TS-файлы сидеров
