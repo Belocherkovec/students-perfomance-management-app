@@ -7,6 +7,10 @@ import cors from 'cors';
 import bodyParser from "body-parser";
 import {ErrorHandler} from "./middlewares/ErrorHandler";
 
+import path from 'path';
+
+const __dirname = path.resolve();
+
 async function bootstrap() {
   // 1. Инициализация базы данных
   await initializeDatabase();

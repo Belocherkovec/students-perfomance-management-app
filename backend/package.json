@@ -1,9 +1,10 @@
 {
   "name": "backend",
+  "type": "module",
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
     "migrate": "ts-node ./node_modules/.bin/sequelize-cli db:migrate --config ./src/config/config.json --migrations-path ./src/migrations",
