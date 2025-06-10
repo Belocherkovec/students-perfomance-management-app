@@ -3,7 +3,9 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "node",
+
     "rootDir": "./src",
+    "baseUrl": "./src",
 
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -11,7 +13,11 @@
 
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
