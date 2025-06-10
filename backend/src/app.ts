@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import {createExpressServer, useContainer as routingUseContainer} from 'routing-controllers';
 import { Container } from 'typedi';
-import { initializeDatabase } from './config/database';
+import { initializeDatabase } from '@/config';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from "body-parser";
-import {ErrorHandler} from "./middlewares/ErrorHandler";
+import {ErrorHandler} from '@/middlewares';
 
 async function bootstrap() {
   // 1. Инициализация базы данных
