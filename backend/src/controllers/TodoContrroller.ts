@@ -1,7 +1,8 @@
-import {Controller, Get, Post, Put, Delete, Param, Body, JsonController} from 'routing-controllers';
-import { TodoService } from '../services/TodoService';
-import { Todo } from '../models/Todo';
+import { Get, Post, Put, Delete, Param, Body, JsonController } from 'routing-controllers';
 import { Service } from 'typedi';
+
+import { Todo } from '@/models/Todo';
+import { TodoService } from '@/services/TodoService';
 
 @JsonController('/todos')
 @Service()
@@ -20,7 +21,7 @@ export class TodoController {
 
   @Post()
   async create(@Body() todoData: Partial<Todo>) {
-    console.log(todoData)
+    console.log(todoData);
     return this.todoService.createTodo(todoData);
   }
 

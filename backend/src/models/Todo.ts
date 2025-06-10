@@ -4,7 +4,7 @@ import { Table, Column, Model, DataType } from 'sequelize-typescript';
 export class Todo extends Model {
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
   })
   title!: string;
 
@@ -13,7 +13,7 @@ export class Todo extends Model {
 
   @Column({
     type: DataType.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   })
   completed!: boolean;
 }

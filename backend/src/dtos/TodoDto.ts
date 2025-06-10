@@ -1,5 +1,4 @@
-// src/dtos/TodoDto.ts
-import {Todo} from "../models/Todo";
+import type { Todo } from '@/models/Todo';
 
 export class TodoDto {
   id: number;

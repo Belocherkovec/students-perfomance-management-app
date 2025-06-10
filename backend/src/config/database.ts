@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import { Sequelize } from 'sequelize-typescript';
 import { Container } from 'typedi';
-import { Todo } from '../models/Todo';
+
+import { Todo } from '@/models/Todo';
 
 export const initializeDatabase = async () => {
   const sequelize = new Sequelize({

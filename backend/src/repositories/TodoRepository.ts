@@ -1,6 +1,7 @@
-import { Service } from 'typedi';
 import { Sequelize } from 'sequelize-typescript';
-import { Todo } from '../models/Todo';
+import { Service } from 'typedi';
+
+import { Todo } from '@/models/Todo';
 
 @Service()
 export class TodoRepository {

@@ -1,4 +1,5 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+import type { QueryInterface } from 'sequelize';
+import { DataTypes } from 'sequelize';
 
 module.exports = {
   up: async (queryInterface: QueryInterface) => {
@@ -6,32 +7,32 @@ module.exports = {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       completed: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       createdAt: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
       },
       updatedAt: {
         type: DataTypes.DATE,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
 
   down: async (queryInterface: QueryInterface) => {
     await queryInterface.dropTable('Todos');
-  }
+  },
 };

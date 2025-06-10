@@ -1,8 +1,9 @@
-import { TodoRepository } from '../repositories/TodoRepository';
-import { Todo } from '../models/Todo';
 import { Service } from 'typedi';
-import {TodoDto} from "../dtos/TodoDto";
-import {NotFoundError} from "../errors/NotFoundError";
+
+import { TodoDto } from '@/dtos/TodoDto';
+import { NotFoundError } from '@/errors';
+import { Todo } from '@/models/Todo';
+import { TodoRepository } from '@/repositories/TodoRepository';
 
 @Service()
 export class TodoService {
@@ -36,7 +37,7 @@ export class TodoService {
     return {
       success: true,
       message: 'Todo deleted successfully',
-      deletedTodo: new TodoDto(todo)
+      deletedTodo: new TodoDto(todo),
     };
   }
 }

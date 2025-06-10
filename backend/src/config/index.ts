@@ -1,1 +1,1 @@
-export { initializeDatabase } from "./database"
+export { initializeDatabase } from './database';
