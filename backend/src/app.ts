@@ -1,13 +1,14 @@
 import 'reflect-metadata';
-import {createExpressServer, useContainer as routingUseContainer} from 'routing-controllers';
-import { Container } from 'typedi';
-import { initializeDatabase } from '@/config';
-import express from 'express';
-import cors from 'cors';
-import bodyParser from "body-parser";
-import {ErrorHandler} from "@/middlewares";
-
 import path from 'path';
+
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import { createExpressServer, useContainer as routingUseContainer } from 'routing-controllers';
+import { Container } from 'typedi';
+
+import { initializeDatabase } from '@/config';
+import { ErrorHandler } from '@/middlewares';
 
 const __dirname = path.resolve();
 
@@ -31,9 +32,9 @@ async function bootstrap() {
   app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Internal Server Error' });
-  })
+  });
 
-  app.use(bodyParser.json())
+  app.use(bodyParser.json());
 
   return app;
 }
