@@ -21,8 +21,6 @@ module.exports = [
       },
       globals: {
         ...globals.node, // Подключает стандартные Node.js глобалы (console, process, etc.)
-        require: 'readonly', // Добавьте require как глобальную переменную
-        module: 'readonly'    // Добавьте module как глобальную переменную
       },
     },
     rules: {
@@ -50,6 +48,12 @@ module.exports = [
       '@typescript-eslint/consistent-type-imports': 'error',
       'object-curly-spacing': ['error', 'always'],
       'quotes': ['error', 'single', { 'avoidEscape': true }]
-    }
+    },
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/*.d.ts',
+      '**/webpack.config.cjs',
+    ]
   }
 ];

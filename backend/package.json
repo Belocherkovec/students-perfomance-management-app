@@ -1,19 +1,19 @@
 {
   "name": "backend",
   "version": "0.0.0",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && webpack --mode production",
     "start": "node dist/server.js",
     "dev": "nodemon -r tsconfig-paths/register src/server.ts",
-    "migrate": "ts-node ./node_modules/.bin/sequelize-cli db:migrate --config ./src/config/config.json --migrations-path ./src/migrations",
-    "seed": "ts-node ./node_modules/.bin/sequelize-cli db:seed:all",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --ext .ts,.js,.cjs",
+    "lint:fix": "eslint . --ext .ts,.js,.cjs --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "check": "npm run lint && npm run format",
-    "fix": "npm run lint:fix && npm run format:fix"
+    "fix": "npm run lint:fix && npm run format:fix",
+    "clean": "rm -rf dist/*"
   },
   "keywords": [],
   "author": "",
@@ -41,13 +41,18 @@
     "@types/node": "^22.15.23",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
+    "dotenv-webpack": "^8.1.0",
     "eslint": "^9.28.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.1",
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
+    "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }

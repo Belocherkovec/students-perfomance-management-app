@@ -6,6 +6,7 @@ import { createExpressServer, useContainer as routingUseContainer } from 'routin
 import { Container } from 'typedi';
 
 import { initializeDatabase } from '@/config';
+import { TodoController } from '@/controllers/TodoContrroller';
 import { ErrorHandler } from '@/middlewares';
 
 async function bootstrap() {
@@ -17,7 +18,7 @@ async function bootstrap() {
 
   // 3. Создание Express приложения с routing-controllers
   const app = createExpressServer({
-    controllers: [__dirname + '/controllers/*.ts'],
+    controllers: [TodoController],
     middlewares: [express.json(), cors(), ErrorHandler],
     defaultErrorHandler: false,
     classTransformer: true,
