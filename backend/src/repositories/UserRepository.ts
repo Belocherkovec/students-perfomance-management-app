@@ -117,7 +117,14 @@ export class UserRepository {
   }
 
   async getUserByLogin(login: string): Promise<User | null> {
-    return this.userRepository.findOne({ where: { login } });
+    return this.userRepository.findOne({
+      where: { login },
+      include: {
+        model: Role,
+        through: { attributes: [] },
+        attributes: ['name'],
+      },
+    });
   }
 
   async getUserById(id: number): Promise<User | null> {

@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { login } from '../api/auth';
 import type { LoginRequest } from './types';
+import { useUserStore } from '@/entities/user/model/store.ts';
 
 interface AuthState {
   accessToken: string | null;
@@ -34,6 +35,7 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           const tokens = await login(credentials);
+          useUserStore.getState().setUser(tokens.user)
           set((state) => {
             state.accessToken = tokens.accessToken;
             state.refreshToken = tokens.refreshToken;

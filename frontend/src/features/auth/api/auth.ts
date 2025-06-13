@@ -1,7 +1,7 @@
 import { baseApi } from '@/shared/api/base';
-import type { Tokens, LoginRequest } from '../model/types';
+import type { LoginResponse, LoginRequest } from '../model/types';
 
-export const login = async (credentials: LoginRequest): Promise<Tokens> => {
-  const response = await baseApi.post<Tokens>('/login', credentials);
+export const login = async (credentials: LoginRequest): Promise<LoginResponse> => {
+  const response = await baseApi.post<LoginResponse>('/login', credentials);
   return response.data;
 };

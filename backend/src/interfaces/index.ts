@@ -1,5 +1,6 @@
 export { type IGroup } from './Group';
-export type { IUser } from './User';
+export { type IUser } from './User';
+export { type ILoginResponse } from './Auth';
 export { type IRole } from './Role';
 export { type IUserRole } from './UserRoles';
 export { type IDiscipline } from './Discipline';

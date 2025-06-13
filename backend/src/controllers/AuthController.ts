@@ -1,6 +1,7 @@
 import { Body, JsonController, Post } from 'routing-controllers';
 import { Service } from 'typedi';
 
+import { ILoginResponse } from '@/interfaces';
 import { AuthService } from '@/services';
 
 @JsonController('/login')
@@ -9,9 +10,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post()
-  async login(
-    @Body() data: { login: string; password: string },
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  async login(@Body() data: { login: string; password: string }): Promise<ILoginResponse> {
     return this.authService.login(data.login, data.password);
   }
 

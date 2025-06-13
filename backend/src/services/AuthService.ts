@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 import { UnauthorizedError } from 'routing-controllers';
 import { Service } from 'typedi';
 
+import { UserDto } from '@/dtos';
+import { ILoginResponse } from '@/interfaces';
 import { User } from '@/models';
 import { UserRepository } from '@/repositories';
 
@@ -9,10 +11,7 @@ import { UserRepository } from '@/repositories';
 export class AuthService {
   constructor(private userRepository: UserRepository) {}
 
-  async login(
-    login: string,
-    password: string,
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  async login(login: string, password: string): Promise<ILoginResponse> {
     const user = await this.userRepository.getUserByLogin(login);
     if (!user) {
       throw new UnauthorizedError('Неверный логин или пароль');
@@ -25,7 +24,7 @@ export class AuthService {
 
     const accessToken = this.generateAccessToken(user);
     const refreshToken = this.generateRefreshToken(user);
-    return { accessToken, refreshToken };
+    return { user: new UserDto(user), accessToken, refreshToken };
   }
 
   async refreshAccessToken(refreshToken: string): Promise<{ accessToken: string }> {

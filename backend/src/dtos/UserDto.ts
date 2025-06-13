@@ -10,8 +10,6 @@ export class UserDto {
   group_id: number | null;
   is_blocked: boolean;
   roles: string[];
-  createdAt: Date;
-  updatedAt: Date;
 
   constructor(user: User) {
     this.id = user.id;
@@ -22,8 +20,6 @@ export class UserDto {
     this.email = user.email || null;
     this.group_id = user.group_id || null;
     this.is_blocked = user.is_blocked;
-    this.createdAt = user.createdAt;
     this.roles = user.rolesList;
-    this.updatedAt = user.updatedAt;
   }
 }

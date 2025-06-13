@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 0 24px;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .logoText {
+      margin: 0;
+      color: #1890ff;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+  }
+
+  .userPanel {
+    .userInfo {
+      line-height: unset;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      .avatar {
+        margin-right: 8px;
+        background-color: #1890ff;
+      }
+
+      .userName {
+        font-weight: 500;
+      }
+    }
+  }
+}
