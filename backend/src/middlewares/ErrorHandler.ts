@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ExpressErrorMiddlewareInterface, Middleware } from 'routing-controllers';
 import { Service } from 'typedi';
 
-import { NotFoundError } from '@/errors';
+import { NotFoundError } from '@/utils';
 
 @Middleware({ type: 'after' })
 @Service()

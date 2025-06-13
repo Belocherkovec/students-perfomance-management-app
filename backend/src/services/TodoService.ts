@@ -1,7 +1,7 @@
 import { Service } from 'typedi';
 
 import { TodoDto } from '@/dtos/TodoDto';
-import { NotFoundError } from '@/errors';
+import { NotFoundError } from 'src/utils';
 import { Todo } from '@/models/Todo';
 import { TodoRepository } from '@/repositories/TodoRepository';
 

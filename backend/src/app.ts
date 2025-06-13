@@ -5,7 +5,7 @@ import express from 'express';
 import { createExpressServer, useContainer as routingUseContainer } from 'routing-controllers';
 import { Container } from 'typedi';
 
-import { initializeDatabase } from '@/config';
+import { initializeDatabase } from '@/configs';
 import { TodoController } from '@/controllers/TodoContrroller';
 import { ErrorHandler } from '@/middlewares';
 
