@@ -1,3 +1,5 @@
+import { BadRequestError, InternalServerError } from 'routing-controllers';
+import { ValidationError, UniqueConstraintError } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { Service } from 'typedi';
 
@@ -16,7 +18,24 @@ export class RoleRepository {
     return this.roleRepository.findAll();
   }
 
-  async addRole(role: IRole): Promise<Role> {
-    return this.roleRepository.create(role);
+  async addRole(roleData: IRole): Promise<Role> {
+    try {
+      return await this.roleRepository.create(roleData);
+    } catch (error) {
+      // Обработка дубликатов
+      if (error instanceof UniqueConstraintError) {
+        throw new BadRequestError(`Роль '${roleData.name}' уже существует`);
+      }
+
+      // Обработка ошибок валидации
+      if (error instanceof ValidationError) {
+        const messages = error.errors.map((err) => err.message).join(', ');
+        throw new BadRequestError(`Ошибка валидации: ${messages}`);
+      }
+
+      // Логирование неожиданных ошибок
+      console.error('Ошибка при создании роли:', error);
+      throw new InternalServerError('Не удалось создать роль');
+    }
   }
 }

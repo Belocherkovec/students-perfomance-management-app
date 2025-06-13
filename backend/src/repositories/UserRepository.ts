@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import { BadRequestError } from 'routing-controllers';
+import { BadRequestError, NotFoundError } from 'routing-controllers';
+import { UniqueConstraintError } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { Service } from 'typedi';
 
@@ -14,6 +15,10 @@ export class UserRepository {
     return this.sequelize.getRepository<User>(User);
   }
 
+  private get roleRepository() {
+    return this.sequelize.getRepository<Role>(Role);
+  }
+
   private get userRoleRepository() {
     return this.sequelize.getRepository<UserRole>(UserRole);
   }
@@ -23,6 +28,15 @@ export class UserRepository {
   }
 
   async createUser(userData: IUser): Promise<User> {
+    // Предварительная проверка уникальности логина
+    const existingUser = await this.userRepository.findOne({
+      where: { login: userData.login },
+    });
+
+    if (existingUser) {
+      throw new BadRequestError(`Пользователь с логином ${userData.login} уже существует`);
+    }
+
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
 
@@ -109,13 +123,57 @@ export class UserRepository {
   }
 
   async addRoleToUser(userId: number, roleId: number): Promise<void> {
-    const [, created] = await this.userRoleRepository.findOrCreate({
-      where: { user_id: userId, role_id: roleId },
-      defaults: { user_id: userId, role_id: roleId },
-    });
+    const transaction = await this.sequelize.transaction();
 
-    if (!created) {
-      throw new BadRequestError('Эта роль уже назначена пользователю');
+    try {
+      // Проверка существования с блокировкой
+      const [user, role] = await Promise.all([
+        this.userRepository.findByPk(userId, {
+          transaction,
+          lock: transaction.LOCK.UPDATE,
+        }),
+        this.roleRepository.findByPk(roleId, {
+          transaction,
+          lock: transaction.LOCK.UPDATE,
+        }),
+      ]);
+
+      if (!user) {
+        throw new NotFoundError(`Пользователь с ID ${userId} не найден`);
+      }
+      if (!role) {
+        throw new NotFoundError(`Роль с ID ${roleId} не найдена`);
+      }
+
+      // Создание связи
+      const [, created] = await this.userRoleRepository.findOrCreate({
+        where: { user_id: userId, role_id: roleId },
+        defaults: { user_id: userId, role_id: roleId },
+        transaction,
+      });
+
+      if (!created) {
+        throw new BadRequestError('Эта роль уже назначена пользователю');
+      }
+
+      await transaction.commit();
+    } catch (error: unknown) {
+      // Явно указываем тип unknown
+      await transaction.rollback();
+
+      // Проверяем тип ошибки
+      if (error instanceof NotFoundError || error instanceof BadRequestError) {
+        throw error;
+      }
+
+      // Обработка ошибок Sequelize
+      if (error instanceof UniqueConstraintError) {
+        throw new BadRequestError('Эта роль уже назначена пользователю');
+      }
+
+      // Неизвестные ошибки
+      console.error('Неожиданная ошибка:', error);
+      throw new Error('Произошла непредвиденная ошибка');
     }
   }
 
