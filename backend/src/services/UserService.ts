@@ -17,4 +17,8 @@ export class UserService {
     const user = await this.userRepository.createUser(userData);
     return new UserDto(user);
   }
+
+  async addUserRole(userId: number, roleId: number): Promise<void> {
+    await this.userRepository.addRoleToUser(userId, roleId);
+  }
 }

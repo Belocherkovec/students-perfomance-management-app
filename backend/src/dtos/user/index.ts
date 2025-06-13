@@ -1,0 +1,1 @@
+export { CreateUserRoleDto } from './CreateUserRoleDto';

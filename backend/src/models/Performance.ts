@@ -5,7 +5,7 @@ import { User } from './User';
 
 import { IPerformance } from '@/interfaces';
 
-@Table
+@Table({ tableName: 'performance' })
 export class Performance extends Model<IPerformance> implements IPerformance {
   @ForeignKey(() => GroupDisciplines)
   @Column({ type: DataType.INTEGER })

@@ -6,6 +6,7 @@ import { Container } from 'typedi';
 import { UserRepository } from '@/repositories';
 
 export const checkAuthorization = async (action: Action, roles: string[]): Promise<boolean> => {
+  console.log(roles);
   // 1. Извлечение токена из заголовка
   const authorizationHeader = action.request.headers['authorization'];
   if (!authorizationHeader) {

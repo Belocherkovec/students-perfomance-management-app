@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { Sequelize } from 'sequelize-typescript';
 import { Container } from 'typedi';
 
-import { Discipline, Group, GroupDisciplines, Performance, Role, User, UserRoles } from '@/models';
+import { Discipline, Group, GroupDisciplines, Performance, Role, User, UserRole } from '@/models';
 
 export const initializeDatabase = async () => {
   const sequelize = new Sequelize({
@@ -12,7 +12,7 @@ export const initializeDatabase = async () => {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    models: [User, Group, Role, Discipline, Performance, UserRoles, GroupDisciplines],
+    models: [User, Group, Role, Discipline, Performance, UserRole, GroupDisciplines],
     logging: false,
   });
 

@@ -1,10 +1,20 @@
-import { Column, DataType, Default, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Default,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 
 import { Group } from './Group';
+import { Role } from './Role';
+import { UserRole } from './UserRole';
 
 import { IUser } from '@/interfaces';
 
-@Table
+@Table({ tableName: 'users' })
 export class User extends Model<IUser> implements IUser {
   @Column({ type: DataType.STRING, allowNull: false })
   name!: string;
@@ -31,4 +41,7 @@ export class User extends Model<IUser> implements IUser {
   @Default(false)
   @Column({ type: DataType.BOOLEAN, allowNull: false })
   is_blocked!: boolean;
+
+  @BelongsToMany(() => Role, () => UserRole)
+  roles!: Role[];
 }
