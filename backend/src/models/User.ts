@@ -44,4 +44,15 @@ export class User extends Model<IUser> implements IUser {
 
   @BelongsToMany(() => Role, () => UserRole)
   roles!: Role[];
+
+  @Column({
+    type: DataType.VIRTUAL,
+    get(this: User) {
+      return this.roles?.map((role) => role.name) || [];
+    },
+    set() {
+      throw new Error('Do not try to set the `roleNames` value!');
+    },
+  })
+  rolesList!: string[];
 }

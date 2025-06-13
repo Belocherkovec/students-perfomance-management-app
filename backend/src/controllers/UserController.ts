@@ -1,12 +1,10 @@
-import { Authorized, Body, Get, HttpCode, JsonController, Post } from 'routing-controllers';
+import { Authorized, Body, Get, JsonController, Post } from 'routing-controllers';
 import { Service } from 'typedi';
 
 import { CreateUserRoleDto } from '@/dtos';
 import { UserDto } from '@/dtos/UserDto';
 import { IUser } from '@/interfaces';
 import { UserService } from '@/services';
-
-function EmptyResultCode(number: number) {}
 
 @JsonController('/users')
 @Service()

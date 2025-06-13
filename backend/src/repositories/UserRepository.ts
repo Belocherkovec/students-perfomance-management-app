@@ -1,11 +1,17 @@
 import bcrypt from 'bcrypt';
 import { BadRequestError, NotFoundError } from 'routing-controllers';
 import { UniqueConstraintError } from 'sequelize';
+import { FindAndCountOptions } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { Service } from 'typedi';
 
 import { IUser } from '@/interfaces';
 import { Role, User, UserRole } from '@/models';
+
+// 1. Определим интерфейс для результата include
+interface UserWithRoles extends IUser {
+  roles?: { name: string }[]; // Структура включенных ролей
+}
 
 @Service()
 export class UserRepository {
@@ -23,8 +29,16 @@ export class UserRepository {
     return this.sequelize.getRepository<UserRole>(UserRole);
   }
 
-  async getAll() {
-    return this.userRepository.findAll();
+  async getAll(): Promise<User[]> {
+    return this.userRepository.findAll({
+      include: [
+        {
+          model: Role,
+          through: { attributes: [] },
+          attributes: ['name'],
+        },
+      ],
+    });
   }
 
   async createUser(userData: IUser): Promise<User> {
@@ -107,19 +121,18 @@ export class UserRepository {
   }
 
   async getUserById(id: number): Promise<User | null> {
-    return this.userRepository.findOne({ where: { id } });
+    return this.userRepository.findOne({
+      where: { id },
+      include: {
+        model: Role,
+        through: { attributes: [] },
+        attributes: ['name'],
+      },
+    });
   }
 
   async comparePassword(user: User, password: string): Promise<boolean> {
     return bcrypt.compare(password, user.password);
-  }
-
-  async getUserRoles(userId: number): Promise<Role[]> {
-    const user = await this.userRepository.findByPk(userId, {
-      include: [Role],
-    });
-
-    return user?.roles || [];
   }
 
   async addRoleToUser(userId: number, roleId: number): Promise<void> {
@@ -180,34 +193,6 @@ export class UserRepository {
   async removeRoleFromUser(userId: number, roleId: number): Promise<void> {
     await this.userRoleRepository.destroy({
       where: { user_id: userId, role_id: roleId },
-    });
-  }
-
-  async setUserRoles(userId: number, roleIds: number[]): Promise<void> {
-    const transaction = await this.sequelize.transaction();
-
-    try {
-      // Удаляем все текущие роли
-      await this.userRoleRepository.destroy({
-        where: { user_id: userId },
-        transaction,
-      });
-
-      // Добавляем новые роли
-      const records = roleIds.map((roleId) => ({ user_id: userId, role_id: roleId }));
-      await this.userRoleRepository.bulkCreate(records, { transaction });
-
-      await transaction.commit();
-    } catch (error) {
-      await transaction.rollback();
-      throw error;
-    }
-  }
-
-  async getUserWithRoles(login: string): Promise<User | null> {
-    return this.userRepository.findOne({
-      where: { login },
-      include: [Role],
     });
   }
 }
