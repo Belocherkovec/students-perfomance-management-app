@@ -1,1 +1,1 @@
-export { NotFoundError } from './NotFoundError';
+export { checkAuthorization } from './checkAuthorization';

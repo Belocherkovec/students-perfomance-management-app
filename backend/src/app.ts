@@ -2,12 +2,15 @@ import 'reflect-metadata';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
+import type { Action } from 'routing-controllers';
 import { createExpressServer, useContainer as routingUseContainer } from 'routing-controllers';
 import { Container } from 'typedi';
 
 import { initializeDatabase } from '@/configs';
 import { UserController, GroupController } from '@/controllers';
+import { AuthController } from '@/controllers/AuthController';
 import { ErrorHandler } from '@/middlewares';
+import { checkAuthorization } from '@/utils';
 
 async function bootstrap() {
   // 1. Инициализация базы данных
@@ -18,8 +21,12 @@ async function bootstrap() {
 
   // 3. Создание Express приложения с routing-controllers
   const app = createExpressServer({
-    controllers: [UserController, GroupController],
+    controllers: [UserController, GroupController, AuthController],
     middlewares: [express.json(), cors(), ErrorHandler],
+    authorizationChecker: checkAuthorization,
+    currentUserChecker: async (action: Action) => {
+      return action.request.user; // Пользователь, добавленный в authorizationChecker
+    },
     defaultErrorHandler: false,
     classTransformer: true,
     validation: true,
