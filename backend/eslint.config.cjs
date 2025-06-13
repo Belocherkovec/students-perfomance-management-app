@@ -27,6 +27,7 @@ module.exports = [
       ...tsESLint.configs.recommended.rules,
       'prettier/prettier': 'error',
       'no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
       'import/order': [
         'error',
         {
