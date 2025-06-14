@@ -1,0 +1,28 @@
+.layout {
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.contentLayout {
+  margin-top: 64px; /* Высота хедера */
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: row;
+}
+
+.content {
+  margin: 24px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  min-height: calc(100vh - 112px); /* 64px header + 48px отступы */
+  flex: 1;
+}

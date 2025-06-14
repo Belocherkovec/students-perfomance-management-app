@@ -1,0 +1,33 @@
+.sideMenu {
+  width: 240px; /* Фиксированная ширина */
+  min-width: 240px;
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+  border-radius: 8px;
+  margin: 24px 0 24px 24px;
+  padding: 0 12px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  .menu {
+    border-radius: 8px !important;
+    border-right: none !important;
+    padding-top: 16px;
+
+    .ant-menu-item {
+      height: 48px;
+      line-height: 48px;
+      margin: 4px 0;
+      padding-left: 24px !important;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      &.ant-menu-item-selected {
+        background-color: #e6f7ff;
+        border-right: 3px solid #1890ff;
+        font-weight: 500;
+      }
+    }
+  }
+}

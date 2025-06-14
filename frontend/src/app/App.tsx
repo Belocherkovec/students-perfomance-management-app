@@ -5,6 +5,10 @@ import ruRU from 'antd/lib/locale/ru_RU';
 import { AuthGuard } from '@/features/auth/ui/AuthGuard';
 import LoginPage from '@/pages/login';
 import HomePage  from '@/pages/home';
+import UsersPage from '@/pages/users';
+import GroupsPage from '@/pages/groups';
+import DisciplinesPage from '@/pages/disciplines';
+import GradesPage from '@/pages/grades';
 
 const App: React.FC = () => {
   return (
@@ -13,9 +17,12 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
 
-          {/* Защищенные маршруты */}
           <Route element={<AuthGuard />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/groups" element={<GroupsPage />} />
+            <Route path="/disciplines" element={<DisciplinesPage />} />
+            <Route path="/grades" element={<GradesPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
