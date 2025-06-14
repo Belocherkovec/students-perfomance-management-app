@@ -7,7 +7,13 @@ import { createExpressServer, useContainer as routingUseContainer } from 'routin
 import { Container } from 'typedi';
 
 import { initializeDatabase } from '@/configs';
-import { UserController, GroupController, AuthController, RoleController } from '@/controllers';
+import {
+  UserController,
+  GroupController,
+  AuthController,
+  RoleController,
+  DisciplineController,
+} from '@/controllers';
 import { ErrorHandler } from '@/middlewares';
 import { checkAuthorization } from '@/utils';
 
@@ -20,7 +26,13 @@ async function bootstrap() {
 
   // 3. Создание Express приложения с routing-controllers
   const app = createExpressServer({
-    controllers: [UserController, GroupController, AuthController, RoleController],
+    controllers: [
+      UserController,
+      GroupController,
+      AuthController,
+      RoleController,
+      DisciplineController,
+    ],
     middlewares: [express.json(), cors(), ErrorHandler],
     authorizationChecker: checkAuthorization,
     currentUserChecker: async (action: Action) => {

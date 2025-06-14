@@ -6,7 +6,15 @@ import { GroupDisciplines } from '@/models/GroupDisciplines';
 
 @Table({ tableName: 'disciplines' })
 export class Discipline extends Model<IDiscipline> implements IDiscipline {
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      notEmpty: true,
+      len: [2, 50],
+    },
+  })
   name!: string;
 
   @BelongsToMany(() => Group, () => GroupDisciplines)
