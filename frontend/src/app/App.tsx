@@ -9,6 +9,7 @@ import UsersPage from '@/pages/users';
 import GroupsPage from '@/pages/groups';
 import DisciplinesPage from '@/pages/disciplines';
 import GradesPage from '@/pages/grades';
+import UserFormPage from '@/pages/users/UsersFormPage.tsx';
 
 const App: React.FC = () => {
   return (
@@ -19,7 +20,12 @@ const App: React.FC = () => {
 
           <Route element={<AuthGuard />}>
             <Route path="/" element={<HomePage />} />
+
             <Route path="/users" element={<UsersPage />} />
+            <Route path="/users/new" element={<UserFormPage isNew />} />
+            <Route path="/users/:id" element={<UserFormPage />} />
+            <Route path="/users/:id/edit" element={<UserFormPage />} />
+
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/disciplines" element={<DisciplinesPage />} />
             <Route path="/grades" element={<GradesPage />} />

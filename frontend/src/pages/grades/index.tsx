@@ -3,7 +3,7 @@ import React from 'react';
 const GradesPage: React.FC = () => {
   return (
     <div>
-      <h1>Таблицы успеваемости</h1>
+      <h1>Успеваемость</h1>
       {/* Контент страницы */}
     </div>
   );

@@ -35,7 +35,7 @@ export const SideMenu: React.FC = () => {
     {
       key: 'grades',
       icon: <TableOutlined />,
-      label: 'Таблицы успеваемости',
+      label: 'Успеваемость',
     },
   ];
 

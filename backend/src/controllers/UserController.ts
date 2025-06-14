@@ -11,7 +11,6 @@ import { UserService } from '@/services';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Authorized('admin')
   @Get()
   async getAll(): Promise<UserDto[]> {
     return this.userService.getAllUsers();
