@@ -4,7 +4,7 @@ import { Service } from 'typedi';
 import { CreateDisciplineDto, DisciplineDto } from '@/dtos/DisciplineDtos';
 import { DisciplineService } from '@/services/DisciplineService';
 
-@JsonController('/discipline')
+@JsonController('/disciplines')
 @Service()
 export class DisciplineController {
   constructor(private service: DisciplineService) {}
@@ -15,7 +15,7 @@ export class DisciplineController {
   }
 
   @Post()
-  async createRole(@Body() data: CreateDisciplineDto) {
+  async createDiscipline(@Body() data: CreateDisciplineDto) {
     return this.service.createDiscipline(data);
   }
 }
