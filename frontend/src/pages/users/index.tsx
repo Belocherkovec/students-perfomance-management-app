@@ -11,6 +11,7 @@ import { ListPageLayout } from '@/widgets/layout/ListPageLayout';
 import { useUserStore } from '@/features/users/model/userStore';
 import type { User } from '@/features/users/model/types';
 import styles from './UsersPage.module.scss';
+import { useGroupStore } from '@/features/groups/model/groupStore.ts';
 
 const UsersPage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,10 +20,11 @@ const UsersPage: React.FC = () => {
     isLoading,
     error,
     loadUsers,
-    loadGroups,
     loadRoles,
     deleteUser
   } = useUserStore();
+
+  const { loadGroups } = useGroupStore();
 
   // Загрузка данных при монтировании
   useEffect(() => {

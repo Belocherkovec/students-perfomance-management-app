@@ -10,6 +10,7 @@ import GroupsPage from '@/pages/groups';
 import DisciplinesPage from '@/pages/disciplines';
 import GradesPage from '@/pages/grades';
 import UserFormPage from '@/pages/users/UsersFormPage.tsx';
+import GroupFormPage from '@/pages/groups/GroupFormPage.tsx';
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,11 @@ const App: React.FC = () => {
             <Route path="/users/:id/edit" element={<UserFormPage />} />
 
             <Route path="/groups" element={<GroupsPage />} />
+            <Route path="/groups/new" element={<GroupFormPage />} />
+            <Route path="/groups/:id" element={<GroupFormPage />} />
+            <Route path="/groups/:id/edit" element={<GroupFormPage />} />
+
+
             <Route path="/disciplines" element={<DisciplinesPage />} />
             <Route path="/grades" element={<GradesPage />} />
           </Route>

@@ -1,5 +1,6 @@
 import { Service } from 'typedi';
 
+import { GroupDto } from '@/dtos/GroupDtos';
 import { GroupRepository } from '@/repositories';
 
 @Service()
@@ -8,6 +9,6 @@ export class GroupService {
 
   async getAllGroups() {
     const groups = await this.groupRepository.getAll();
-    return groups;
+    return groups.map((group) => new GroupDto(group));
   }
 }

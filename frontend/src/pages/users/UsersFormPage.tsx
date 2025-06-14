@@ -14,6 +14,7 @@ import {
 import { useUserStore } from '@/features/users/model/userStore';
 import type { CreateUserData } from '@/features/users/model/types';
 import styles from './UsersFormPage.module.scss';
+import { useGroupStore } from '@/features/groups/model/groupStore.ts';
 
 const { Option } = Select;
 
@@ -29,15 +30,15 @@ const UserFormPage: React.FC<UserFormPageProps> = ({ isNew = false }) => {
 
   const {
     users,
-    groups,
     roles,
     getUserById,
     createUser,
     updateUser,
     loadUsers,
-    loadGroups,
     loadRoles
   } = useUserStore();
+
+  const { groups, loadGroups } = useGroupStore();
 
   // Загрузка данных при монтировании
   useEffect(() => {
@@ -175,7 +176,7 @@ const UserFormPage: React.FC<UserFormPageProps> = ({ isNew = false }) => {
                   label="Группа"
                 >
                   <Select placeholder="Выберите группу" allowClear>
-                    {groups.map(group => (
+                    {groups.map(group => ( // Используем группы из groupStore
                       <Option key={group.id} value={group.id}>
                         {group.name}
                       </Option>

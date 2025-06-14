@@ -1,18 +1,16 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { userApi } from '../api/userApi';
-import type { User, Group, Role, CreateUserData } from './types';
+import type { User, Role, CreateUserData } from './types';
 
 interface UserState {
   users: User[];
-  groups: Group[];
   roles: Role[];
   isLoading: boolean;
   error: string | null;
   selectedUser: User | null;
 
   loadUsers: () => Promise<void>;
-  loadGroups: () => Promise<void>;
   loadRoles: () => Promise<void>;
   selectUser: (user: User | null) => void;
   createUser: (userData: CreateUserData) => Promise<void>;
@@ -48,17 +46,6 @@ export const useUserStore = create<UserState>()(
           state.isLoading = false;
           state.error = 'Ошибка загрузки пользователей';
         });
-      }
-    },
-
-    loadGroups: async () => {
-      try {
-        const groups = await userApi.getGroups();
-        set(state => {
-          state.groups = groups;
-        });
-      } catch (error) {
-        console.error('Ошибка загрузки групп:', error);
       }
     },
 
