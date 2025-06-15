@@ -33,7 +33,7 @@ export const SideMenu: React.FC = () => {
       label: 'Дисциплины',
     },
     {
-      key: 'grades',
+      key: 'performance',
       icon: <TableOutlined />,
       label: 'Успеваемость',
     },

@@ -1,0 +1,121 @@
+.container {
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.table {
+  .studentCell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    button {
+      padding: 0 4px;
+    }
+  }
+
+  .columnHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 0;
+
+    > div:first-child {
+      font-weight: 500;
+    }
+  }
+
+  .attendanceCell {
+    button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .simpleCell {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    button {
+      min-width: 36px;
+      padding: 0 4px;
+    }
+  }
+
+  .complexCell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    input {
+      flex: 1;
+    }
+
+    span {
+      min-width: 40px;
+      text-align: center;
+    }
+
+    button {
+      padding: 0 4px;
+    }
+  }
+
+  .averageCell {
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  :global(.ant-table-cell) {
+    padding: 8px !important;
+  }
+}
+
+.chartModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.chartContainer {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

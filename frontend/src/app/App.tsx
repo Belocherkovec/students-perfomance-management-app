@@ -8,10 +8,10 @@ import HomePage  from '@/pages/home';
 import UsersPage from '@/pages/users';
 import GroupsPage from '@/pages/groups';
 import DisciplinesPage from '@/pages/disciplines';
-import GradesPage from '@/pages/grades';
 import UserFormPage from '@/pages/users/UsersFormPage.tsx';
 import GroupFormPage from '@/pages/groups/GroupFormPage.tsx';
 import DisciplineFormPage from '@/pages/disciplines/DisciplineFormPage.tsx';
+import { PerformanceRouter } from '@/pages/performance/PerformancePage.tsx';
 
 const App: React.FC = () => {
   return (
@@ -38,8 +38,7 @@ const App: React.FC = () => {
             <Route path="/disciplines/:id" element={<DisciplineFormPage />} />
             <Route path="/disciplines/:id/edit" element={<DisciplineFormPage />} />
 
-            <Route path="/disciplines" element={<DisciplinesPage />} />
-            <Route path="/grades" element={<GradesPage />} />
+            <Route path="/performance/*" element={<PerformanceRouter />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
